@@ -4,6 +4,7 @@ import { Search, ShoppingCart, User, Heart, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { ThemeToggle } from './ThemeToggle';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,13 +46,16 @@ const Navbar = () => {
             <Link to="/categories/women" className="text-sm font-medium hover:text-primary transition-colors">
               Women
             </Link>
-            <Link to="/categories/accessories" className="text-sm font-medium hover:text-primary transition-colors">
-              Accessories
+            <Link to="/contact" className="text-sm font-medium hover:text-primary transition-colors">
+              Contact
             </Link>
           </div>
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-2">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+
             {/* Mobile Search */}
             <Button variant="ghost" size="icon" className="md:hidden">
               <Search className="h-5 w-5" />
@@ -66,13 +70,15 @@ const Navbar = () => {
             </Button>
 
             {/* Cart */}
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-brand-violet">
-                  {cartCount}
-                </Badge>
-              )}
+            <Button variant="ghost" size="icon" className="relative" asChild>
+              <Link to="/checkout">
+                <ShoppingCart className="h-5 w-5" />
+                {cartCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-brand-violet">
+                    {cartCount}
+                  </Badge>
+                )}
+              </Link>
             </Button>
 
             {/* User Account */}

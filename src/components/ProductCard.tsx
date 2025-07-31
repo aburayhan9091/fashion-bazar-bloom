@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -23,9 +23,16 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+  
   const discountPercentage = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+
+  const handleAddToCart = () => {
+    // Add to cart logic here (would typically use context/state management)
+    navigate('/checkout');
+  };
 
   return (
     <Card className="group cursor-pointer overflow-hidden border-0 shadow-soft hover:shadow-medium transition-all duration-300 hover:scale-105">
@@ -63,7 +70,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 View Details
               </Link>
             </Button>
-            <Button variant="cart" size="sm">
+            <Button variant="cart" size="sm" onClick={handleAddToCart}>
               <ShoppingCart className="h-4 w-4 mr-1" />
               Add to Cart
             </Button>

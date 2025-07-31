@@ -6,6 +6,7 @@ import TrendingProducts from '@/components/TrendingProducts';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import FacebookChat from '@/components/FacebookChat';
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
       <Testimonials />
       <Footer />
       <NewsletterBanner />
+      <FacebookChat />
     </div>
   );
 };
