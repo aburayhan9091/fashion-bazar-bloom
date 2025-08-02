@@ -9,6 +9,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { useCart } from '@/contexts/CartContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -26,26 +27,8 @@ const Checkout = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  // Mock cart items - in real app, this would come from context/state
-  const [cartItems] = useState<CartItem[]>([
-    {
-      id: '1',
-      name: "Women's Floral Summer Dress",
-      price: 89.99,
-      quantity: 1,
-      image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=100&h=100&fit=crop',
-      size: 'M',
-      color: 'Blue'
-    },
-    {
-      id: '3',
-      name: "Classic White Sneakers",
-      price: 129.99,
-      quantity: 1,
-      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=100&h=100&fit=crop',
-      size: '9'
-    }
-  ]);
+  // Get cart items from context
+  const { cartItems, cartTotal, removeFromCart, updateQuantity } = useCart();
 
   const [customerData, setCustomerData] = useState({
     firstName: '',
@@ -345,27 +328,54 @@ const Checkout = () => {
                 <CardTitle>Order Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Cart Items */}
-                <div className="space-y-3">
-                  {cartItems.map((item) => (
-                    <div key={item.id} className="flex space-x-3">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-12 h-12 object-cover rounded-md"
-                      />
-                      <div className="flex-1">
-                        <h4 className="text-sm font-medium">{item.name}</h4>
-                        <p className="text-xs text-muted-foreground">
-                          {item.size && `Size: ${item.size}`}
-                          {item.color && ` • Color: ${item.color}`}
-                        </p>
-                        <p className="text-sm">Qty: {item.quantity}</p>
-                      </div>
-                      <span className="text-sm font-medium">${item.price}</span>
-                    </div>
-                  ))}
-                </div>
+                 {/* Cart Items */}
+                 <div className="space-y-3">
+                   {cartItems.map((item) => (
+                     <div key={item.cartId} className="flex space-x-3">
+                       <img
+                         src={item.image}
+                         alt={item.name}
+                         className="w-12 h-12 object-cover rounded-md"
+                       />
+                       <div className="flex-1">
+                         <h4 className="text-sm font-medium">{item.name}</h4>
+                         <p className="text-xs text-muted-foreground">
+                           {item.selectedSize && `Size: ${item.selectedSize}`}
+                           {item.selectedColor && ` • Color: ${item.selectedColor}`}
+                         </p>
+                         <div className="flex items-center space-x-2">
+                           <Button 
+                             variant="outline" 
+                             size="sm" 
+                             onClick={() => updateQuantity(item.cartId, item.quantity - 1)}
+                             disabled={item.quantity <= 1}
+                             className="h-6 w-6 p-0"
+                           >
+                             -
+                           </Button>
+                           <span className="text-sm">Qty: {item.quantity}</span>
+                           <Button 
+                             variant="outline" 
+                             size="sm" 
+                             onClick={() => updateQuantity(item.cartId, item.quantity + 1)}
+                             className="h-6 w-6 p-0"
+                           >
+                             +
+                           </Button>
+                           <Button 
+                             variant="ghost" 
+                             size="sm" 
+                             onClick={() => removeFromCart(item.cartId)}
+                             className="text-red-500 hover:text-red-700 h-6 w-6 p-0"
+                           >
+                             ×
+                           </Button>
+                         </div>
+                       </div>
+                       <span className="text-sm font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+                     </div>
+                   ))}
+                 </div>
 
                 <div className="border-t pt-4 space-y-2">
                   <div className="flex justify-between text-sm">
