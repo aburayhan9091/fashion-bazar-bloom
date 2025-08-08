@@ -152,7 +152,7 @@ const ProductDetail = () => {
               </div>
               {discountPercentage > 0 && (
                 <p className="text-brand-rose font-medium">
-                  You save ${(product.originalPrice! - product.price).toFixed(2)} ({discountPercentage}% off)
+                  You save ${(product.originalPrice - product.price).toFixed(2)} ({discountPercentage}% off)
                 </p>
               )}
             </div>

@@ -15,8 +15,8 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [priceRange, setPriceRange] = useState([0, 500]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [viewMode, setViewMode] = useState('grid');
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredProducts = sampleProducts.filter(product => {
@@ -44,7 +44,7 @@ const Products = () => {
     }
   });
 
-  const handleCategoryChange = (category: string, checked: boolean) => {
+  const handleCategoryChange = (category, checked) => {
     if (checked) {
       setSelectedCategories([...selectedCategories, category]);
     } else {
@@ -139,7 +139,7 @@ const Products = () => {
                           id={category.slug}
                           checked={selectedCategories.includes(category.name)}
                           onCheckedChange={(checked) => 
-                            handleCategoryChange(category.name, checked as boolean)
+                            handleCategoryChange(category.name, checked)
                           }
                         />
                         <label htmlFor={category.slug} className="text-sm flex-1 cursor-pointer">

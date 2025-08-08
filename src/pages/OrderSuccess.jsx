@@ -117,7 +117,7 @@ const OrderSuccess = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {orderData.cartItems.map((item: any) => (
+                {orderData.cartItems.map((item) => (
                   <div key={item.id} className="flex items-center space-x-4 p-3 border rounded-lg">
                     <img
                       src={item.image}

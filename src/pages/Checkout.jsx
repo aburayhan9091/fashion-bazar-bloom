@@ -13,16 +13,6 @@ import { useCart } from '@/contexts/CartContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-  size?: string;
-  color?: string;
-}
-
 const Checkout = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -51,20 +41,20 @@ const Checkout = () => {
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + shipping + tax;
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field, value) => {
     setCustomerData(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
 
     // Validate required fields
     const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zipCode'];
-    const missingFields = requiredFields.filter(field => !customerData[field as keyof typeof customerData]);
+    const missingFields = requiredFields.filter(field => !customerData[field]);
     
     if (missingFields.length > 0) {
       toast({

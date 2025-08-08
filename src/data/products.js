@@ -1,22 +1,4 @@
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  category: string;
-  isNew?: boolean;
-  isSale?: boolean;
-  description: string;
-  colors: string[];
-  sizes: string[];
-  inStock: boolean;
-  gallery: string[];
-}
-
-export const sampleProducts: Product[] = [
+export const sampleProducts = [
   {
     id: '1',
     name: "Women's Floral Summer Dress",
