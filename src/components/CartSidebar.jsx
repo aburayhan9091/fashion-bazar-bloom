@@ -3,25 +3,7 @@ import { X, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  size?: string;
-  color?: string;
-}
-
-interface CartSidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
-  items: CartItem[];
-  onUpdateQuantity: (id: string, quantity: number) => void;
-  onRemoveItem: (id: string) => void;
-}
-
-const CartSidebar: React.FC<CartSidebarProps> = ({
+const CartSidebar = ({
   isOpen,
   onClose,
   items,

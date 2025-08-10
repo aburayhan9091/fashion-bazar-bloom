@@ -10,7 +10,7 @@ const NewsletterBanner = () => {
 
   if (!isVisible) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // Handle newsletter signup
     console.log('Newsletter signup:', email);
